@@ -3,7 +3,7 @@ name: Overleaf Image Auto Builder
 on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-  # Auto run every day at 4 AM
+  # Auto run every Saturday
   schedule:
     - cron: '0 0 * * 6'
 
