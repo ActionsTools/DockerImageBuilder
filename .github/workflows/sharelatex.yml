@@ -8,7 +8,7 @@ on:
     - cron: '0 0 * * 6'
 
 jobs:
-  sharelatex_base:
+  sharelatex:
     runs-on: ubuntu-latest
     steps:
       - name: Clone
@@ -27,11 +27,13 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Generate ARGS
+      - name: Generate GitHub ENV
         run: |
-          echo APP_VERSION=`git describe --tags --always` >> $GITHUB_ENV
+          echo MONOREPO_REVISION = `git -C overleaf rev-parse HEAD` >> $GITHUB_ENV
+          echo SHARELATEX_BASE_TAG = ${{ secrets.DOCKER_USERNAME }}/sharelatex-base >> $GITHUB_ENV
+          echo SHARELATEX_TAG = ${{ secrets.DOCKER_USERNAME }}/sharelatex >> $GITHUB_ENV
 
-      - name: Build and push
+      - name: Build and push sharelatex-base
         uses: docker/build-push-action@v3
         with:
           context: ./overleaf
@@ -41,6 +43,20 @@ jobs:
             linux/arm64
           push: true
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/sharelatex-base:latest
-          cache-from: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/sharelatex-base:buildcache
-          cache-to: type=registry,ref=user/app:buildcache,mode=max
+            ${{ env.SHARELATEX_BASE_TAG }}
+          cache-from: type=registry,ref=${{ env.SHARELATEX_BASE_TAG }}:latest
+
+      - name: Build and push sharelatex
+        uses: docker/build-push-action@v3
+        with:
+          context: ./overleaf
+          file: ./overleaf/server-ce/Dockerfile
+          platforms: |
+            linux/amd64
+            linux/arm64
+          push: true
+          build-args: |
+            SHARELATEX_BASE_TAG=${{ env.SHARELATEX_BASE_TAG }}
+            MONOREPO_REVISION=${{ env.MONOREPO_REVISION }}
+          tags: |
+            ${{ env.SHARELATEX_TAG }}
