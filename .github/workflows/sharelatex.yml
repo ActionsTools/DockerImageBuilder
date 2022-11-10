@@ -42,3 +42,5 @@ jobs:
           push: true
           tags: |
             ${{ secrets.DOCKER_USERNAME }}/sharelatex-base:latest
+          cache-from: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/sharelatex-base:buildcache
+          cache-to: type=registry,ref=user/app:buildcache,mode=max
