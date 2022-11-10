@@ -1,11 +1,11 @@
-name: Overleaf Image Auto Builder
+name: sharelatex
 
 on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-  # Auto run every Saturday
+  # Auto run every Sunday at 1 am, rely on sharelatex-base
   schedule:
-    - cron: '0 0 * * 6'
+    - cron: '0 1 * * 6'
 
 jobs:
   sharelatex:
@@ -29,22 +29,9 @@ jobs:
 
       - name: Generate GitHub ENV
         run: |
+          echo COMMIT_SHA=`git -C overleaf describe --tags --always` >> $GITHUB_ENV
           echo "MONOREPO_REVISION = $(git -C overleaf rev-parse HEAD)" >> $GITHUB_ENV
           echo "SHARELATEX_BASE_TAG=${{ secrets.DOCKER_USERNAME }}/sharelatex-base" >> $GITHUB_ENV
-          echo "SHARELATEX_TAG=${{ secrets.DOCKER_USERNAME }}/sharelatex" >> $GITHUB_ENV
-
-      - name: Build and push sharelatex-base
-        uses: docker/build-push-action@v3
-        with:
-          context: ./overleaf
-          file: ./overleaf/server-ce/Dockerfile-base
-          platforms: |
-            linux/amd64
-            linux/arm64
-          push: true
-          tags: |
-            ${{ env.SHARELATEX_BASE_TAG }}
-          cache-from: type=registry,ref=${{ env.SHARELATEX_BASE_TAG }}:latest
 
       - name: Build and push sharelatex
         uses: docker/build-push-action@v3
@@ -59,4 +46,5 @@ jobs:
             SHARELATEX_BASE_TAG=${{ env.SHARELATEX_BASE_TAG }}
             MONOREPO_REVISION=${{ env.MONOREPO_REVISION }}
           tags: |
-            ${{ env.SHARELATEX_TAG }}
+            ${{ secrets.DOCKER_USERNAME }}/sharelatex:latest
+            ${{ secrets.DOCKER_USERNAME }}/sharelatex:${{ env.COMMIT_SHA }}
