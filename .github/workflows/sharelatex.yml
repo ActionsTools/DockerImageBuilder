@@ -29,9 +29,9 @@ jobs:
 
       - name: Generate GitHub ENV
         run: |
-          echo MONOREPO_REVISION = `git -C overleaf rev-parse HEAD` >> $GITHUB_ENV
-          echo SHARELATEX_BASE_TAG = ${{ secrets.DOCKER_USERNAME }}/sharelatex-base >> $GITHUB_ENV
-          echo SHARELATEX_TAG = ${{ secrets.DOCKER_USERNAME }}/sharelatex >> $GITHUB_ENV
+          echo "MONOREPO_REVISION = $(git -C overleaf rev-parse HEAD)" >> $GITHUB_ENV
+          echo "SHARELATEX_BASE_TAG=${{ secrets.DOCKER_USERNAME }}/sharelatex-base" >> $GITHUB_ENV
+          echo "SHARELATEX_TAG=${{ secrets.DOCKER_USERNAME }}/sharelatex" >> $GITHUB_ENV
 
       - name: Build and push sharelatex-base
         uses: docker/build-push-action@v3
