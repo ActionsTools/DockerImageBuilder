@@ -3,6 +3,11 @@ name: sharelatex-base
 on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+  # Run when the versioning json file change
+  push:
+    branches: [main]
+    paths:
+      - 'sharelatex-base.json'
   # Auto run every Saturday
   schedule:
     - cron: '0 0 * * 6'
