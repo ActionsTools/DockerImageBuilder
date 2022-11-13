@@ -22,7 +22,7 @@ jobs:
         id: prepare-env
         uses: ActionsTool/ActionReadJSON@main
         with:
-          file_path: 'sharelatex-base.json'
+          file_path: 'sharelatex.json'
           prop_path: 'versions[0]'
 
       - name: Clone and reset to specific commit
