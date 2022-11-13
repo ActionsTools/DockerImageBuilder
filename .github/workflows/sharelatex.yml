@@ -51,3 +51,4 @@ jobs:
             MONOREPO_REVISION=${{ steps.prepare-env.outputs.sha }}
           tags: |
             ${{ secrets.DOCKER_USERNAME }}/sharelatex:latest
+          cache-from: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/sharelatex:latest
