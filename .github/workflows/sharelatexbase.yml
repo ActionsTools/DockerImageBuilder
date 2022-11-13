@@ -13,6 +13,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - run: |
+          ls
+
       - name: Prepare Environment
         id: prepare-env
         uses: ActionsTool/ActionReadJSON@main
@@ -23,7 +26,7 @@ jobs:
       - name: Clone and reset to specific commit
         run: |
           git clone https://github.com/overleaf/overleaf.git
-          git reset --hard ${{steps.prepare-env.outputs.sha}}
+          git -C overleaf reset --hard ${{steps.prepare-env.outputs.sha}}
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
