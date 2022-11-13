@@ -8,12 +8,22 @@ on:
     - cron: '0 1 * * 6'
 
 jobs:
-  sharelatex:
+  latest:
     runs-on: ubuntu-latest
     steps:
-      - name: Clone
+      - uses: actions/checkout@v3
+
+      - name: Prepare Environment
+        id: prepare-env
+        uses: ActionsTool/ActionReadJSON@main
+        with:
+          file_path: 'sharelatex-base.json'
+          prop_path: 'versions[0]'
+
+      - name: Clone and reset to specific commit
         run: |
-          git clone --depth=1 https://github.com/overleaf/overleaf.git
+          git clone https://github.com/overleaf/overleaf.git
+          git -C overleaf reset --hard ${{steps.prepare-env.outputs.sha}}
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
@@ -27,12 +37,6 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Generate GitHub ENV
-        run: |
-          echo COMMIT_SHA=`git -C overleaf describe --tags --always` >> $GITHUB_ENV
-          echo "MONOREPO_REVISION = $(git -C overleaf rev-parse HEAD)" >> $GITHUB_ENV
-          echo "SHARELATEX_BASE_TAG=${{ secrets.DOCKER_USERNAME }}/sharelatex-base" >> $GITHUB_ENV
-
       - name: Build and push sharelatex
         uses: docker/build-push-action@v3
         with:
@@ -43,8 +47,7 @@ jobs:
             linux/arm64
           push: true
           build-args: |
-            SHARELATEX_BASE_TAG=${{ env.SHARELATEX_BASE_TAG }}
-            MONOREPO_REVISION=${{ env.MONOREPO_REVISION }}
+            SHARELATEX_BASE_TAG=${{ secrets.DOCKER_USERNAME }}/sharelatex-base
+            MONOREPO_REVISION=${{ steps.prepare-env.outputs.sha }}
           tags: |
             ${{ secrets.DOCKER_USERNAME }}/sharelatex:latest
-            ${{ secrets.DOCKER_USERNAME }}/sharelatex:${{ env.COMMIT_SHA }}
