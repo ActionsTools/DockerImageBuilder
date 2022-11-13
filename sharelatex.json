@@ -1,0 +1,13 @@
+{
+  "name": "sharelatex",
+  "builder-template-version": "0.1",
+  "versions": [
+    {
+      "tag": ["latest", "3.3.0"],
+      "sha": "ddb907187e74fd013049d9817efd3a02f0bf84ea"
+    },{
+      "tag": ["3.2.2"],
+      "sha": "88a1935180ac753889f18302d02dd2b1b4346e2d"
+    }
+  ]
+}

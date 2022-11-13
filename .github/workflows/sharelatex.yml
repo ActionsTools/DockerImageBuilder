@@ -3,6 +3,11 @@ name: sharelatex
 on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+  # Run when the versioning json file change
+  push:
+    branches: [main]
+    paths:
+      - 'sharelatex.json'
   # Auto run every Sunday at 1 am, rely on sharelatex-base
   schedule:
     - cron: '0 1 * * 6'
