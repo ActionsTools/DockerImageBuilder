@@ -20,7 +20,7 @@ jobs:
 
       - name: Prepare Environment
         id: prepare-env
-        uses: ActionsTool/ActionReadJSON@main
+        uses: ActionsTools/ActionReadJSON@main
         with:
           file_path: 'sharelatex-base.json'
           prop_path: 'versions[0]'
