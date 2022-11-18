@@ -1,4 +1,4 @@
-# ActionDockerImageBuilder
+# DockerImageBuilder
 Automatically build docker images using GitHub Action, tracing the repos regularly on schedule.
 - [sharelatex-base](https://hub.docker.com/r/liuyujie99/sharelatex-base) 
   - Status:
