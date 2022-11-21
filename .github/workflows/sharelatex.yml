@@ -8,9 +8,9 @@ on:
     branches: [main]
     paths:
       - 'sharelatex.json'
-  # Auto run every Sunday at 1 am, rely on sharelatex-base
+  # Rely on sharelatex-base
   schedule:
-    - cron: '0 1 * * 6'
+    - cron: '0 2 1 * *'
 
 jobs:
   latest:
