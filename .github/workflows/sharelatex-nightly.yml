@@ -1,4 +1,4 @@
-name: sharelatex-latest
+name: sharelatex-nightly
 
 on:
   # Allows you to run this workflow manually from the Actions tab
