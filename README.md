@@ -5,7 +5,9 @@ To limit the usage of free GitHub Actions, the minimal build interval in this pr
   - Status:
   ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/ActionsTools/DockerImageBuilder/sharelatex-base)
   ![Docker Pulls](https://img.shields.io/docker/pulls/liuyujie99/sharelatex-base)
-  - Schedule: The first day of every month.
+  - Schedule: 
+    - Latest: Every time when `sharelatex.json` changes.
+    - Nightly: Every Monday
   - Architecture: AMD64, ARM64
 - [sharelatex](https://hub.docker.com/r/liuyujie99/sharelatex) 
   - Status:
@@ -13,6 +15,6 @@ To limit the usage of free GitHub Actions, the minimal build interval in this pr
   ![Docker Pulls](https://img.shields.io/docker/pulls/liuyujie99/sharelatex)
   - Schedule: 
     - Latest: Every time when `sharelatex.json` changes.
-    - Nightly: Every first day of the month
+    - Nightly: Every Monday
   - Architecture: AMD64, ARM64
 

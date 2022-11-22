@@ -7,7 +7,6 @@ on:
   push:
     branches: [main]
     paths:
-      - 'sharelatex-base.json'
       - 'sharelatex.json'
 
 jobs:
@@ -20,7 +19,7 @@ jobs:
         id: prepare-env
         uses: ActionsTools/ActionReadJSON@main
         with:
-          file_path: 'sharelatex-base.json'
+          file_path: 'sharelatex.json'
           prop_path: 'versions[0]'
 
       - name: Clone and reset to specific commit
