@@ -10,22 +10,32 @@ on:
       - 'sharelatex.json'
 
 jobs:
-  sharelatex-base:
+  prepare-environment:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
 
-      - name: Prepare Environment
-        id: prepare-env
-        uses: ActionsTools/ActionReadJSON@main
+      - id: prepare
+        uses: ActionsTools/read-json-action@main
         with:
           file_path: 'sharelatex.json'
-          prop_path: 'versions[0]'
+    outputs:
+      versions: ${{steps.prepare.outputs.versions}}
+
+  sharelatex-base:
+    needs: prepare-environment
+    runs-on: ubuntu-latest
+    # Create a job for each version
+    strategy:
+      matrix:
+        versions: ${{fromJson(needs.prepare-environment.outputs.versions)}}
+    steps:
+      - uses: actions/checkout@v3
 
       - name: Clone and reset to specific commit
         run: |
           git clone https://github.com/overleaf/overleaf.git
-          git -C overleaf reset --hard ${{steps.prepare-env.outputs.sha}}
+          git -C overleaf reset --hard ${{matrix.versions.sha}}
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
@@ -49,26 +59,19 @@ jobs:
             linux/arm64
           push: true
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/sharelatex-base:latest
-          cache-from: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/sharelatex-base:latest
+            ${{ secrets.DOCKER_USERNAME }}/sharelatex-base:${{matrix.versions.tag}}
+          cache-from: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/sharelatex-base:${{matrix.versions.tag}}
 
   sharelatex:
-    needs: sharelatex-base
+    needs: [prepare-environment, sharelatex-base]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
 
-      - name: Prepare Environment
-        id: prepare-env
-        uses: ActionsTools/ActionReadJSON@main
-        with:
-          file_path: 'sharelatex.json'
-          prop_path: 'versions[0]'
-
       - name: Clone and reset to specific commit
         run: |
           git clone https://github.com/overleaf/overleaf.git
-          git -C overleaf reset --hard ${{steps.prepare-env.outputs.sha}}
+          git -C overleaf reset --hard ${{matrix.versions.sha}}
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
@@ -96,5 +99,5 @@ jobs:
             SHARELATEX_BASE_TAG=${{ secrets.DOCKER_USERNAME }}/sharelatex-base
             MONOREPO_REVISION=${{ steps.prepare-env.outputs.sha }}
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/sharelatex:latest
-          cache-from: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/sharelatex:latest
+            ${{ secrets.DOCKER_USERNAME }}/sharelatex:${{matrix.versions.tag}}
+          cache-from: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/sharelatex:${{matrix.versions.tag}}
