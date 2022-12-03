@@ -90,7 +90,6 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build and push sharelatex
-        if: steps.filter.outputs.sharelatex == 'true'
         uses: docker/build-push-action@v3
         with:
           context: ./overleaf
