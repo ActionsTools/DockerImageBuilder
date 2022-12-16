@@ -5,17 +5,17 @@ To limit the usage of free GitHub Actions, the minimal build interval in this pr
   - Pulls: ![Docker Pulls](https://img.shields.io/docker/pulls/liuyujie99/sharelatex-base)
   - Build schedule: 
     - Latest: Every time when `sharelatex.json` changes.
-      - Status: ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/ActionsTools/DockerImageBuilder/sharelatex-latest)
+      - Status: ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/ActionsTools/DockerImageBuilder/sharelatex-latest.yml?branch=main)
     - Nightly: Every Monday.
-      - Status: ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/ActionsTools/DockerImageBuilder/sharelatex-nightly)
+      - Status: ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/ActionsTools/DockerImageBuilder/sharelatex-nightly.yml?branch=main)
   - Architecture: AMD64, ARM64
 
 - [sharelatex](https://hub.docker.com/r/liuyujie99/sharelatex) 
   - Pulls: ![Docker Pulls](https://img.shields.io/docker/pulls/liuyujie99/sharelatex)
   - Build Schedule: 
     - Latest: Every time when `sharelatex.json` changes.
-      - Status: ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/ActionsTools/DockerImageBuilder/sharelatex-latest)
+      - Status: ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/ActionsTools/DockerImageBuilder/sharelatex-latest.yml?branch=main)
     - Nightly: Every Monday
-      - Status: ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/ActionsTools/DockerImageBuilder/sharelatex-nightly)
+      - Status: ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/ActionsTools/DockerImageBuilder/sharelatex-nightly.yml?branch=main)
   - Architecture: AMD64, ARM64
 
