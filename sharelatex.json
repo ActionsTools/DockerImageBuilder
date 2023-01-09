@@ -4,6 +4,10 @@
   "versions": [
     {
       "tag": "latest",
+      "sha": "7b7c85527fc0e4cdb4b91c07ecb6c3e297b8662c"
+    },
+    {
+      "tag": "3.3.0",
       "sha": "ddb907187e74fd013049d9817efd3a02f0bf84ea"
     },{
       "tag": "3.2.0",
