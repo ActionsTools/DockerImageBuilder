@@ -72,7 +72,7 @@ jobs:
           context: ./overleaf
           file: ./overleaf/server-ce/Dockerfile
           platforms: |
-            linux/arm64
+            linux/amd64
           push: true
           build-args: |
             SHARELATEX_BASE_TAG=${{ secrets.DOCKER_USERNAME }}/sharelatex-base
