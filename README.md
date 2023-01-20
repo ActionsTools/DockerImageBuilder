@@ -1,21 +1,19 @@
 # DockerImageBuilder
-Automatically build docker images using GitHub Action, tracing the repos regularly on schedule.  
-To limit the usage of free GitHub Actions, the minimal build interval in this project will be one week.
+Automatically build docker images using GitHub Action, tracing the repos regularly on schedule.
 - [sharelatex-base](https://hub.docker.com/r/liuyujie99/sharelatex-base) 
   - Pulls: ![Docker Pulls](https://img.shields.io/docker/pulls/liuyujie99/sharelatex-base)
   - Build schedule: 
     - Latest: Every time when `sharelatex.json` changes.
-      - Status: ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/ActionsTools/DockerImageBuilder/sharelatex-latest.yml?branch=main)
-    - Nightly: Every Monday.
-      - Status: ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/ActionsTools/DockerImageBuilder/sharelatex-nightly.yml?branch=main)
+      - Status: [![sharelatex-latest](https://github.com/ActionsTools/DockerImageBuilder/actions/workflows/sharelatex-latest.yml/badge.svg)](https://github.com/ActionsTools/DockerImageBuilder/actions/workflows/sharelatex-latest.yml)
+    - Nightly: Every day.
+      - Status: [![sharelatex-nightly](https://github.com/ActionsTools/DockerImageBuilder/actions/workflows/sharelatex-nightly.yml/badge.svg)](https://github.com/ActionsTools/DockerImageBuilder/actions/workflows/sharelatex-nightly.yml)
   - Architecture: AMD64, ARM64
 
 - [sharelatex](https://hub.docker.com/r/liuyujie99/sharelatex) 
   - Pulls: ![Docker Pulls](https://img.shields.io/docker/pulls/liuyujie99/sharelatex)
   - Build Schedule: 
     - Latest: Every time when `sharelatex.json` changes.
-      - Status: ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/ActionsTools/DockerImageBuilder/sharelatex-latest.yml?branch=main)
-    - Nightly: Every Monday
-      - Status: ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/ActionsTools/DockerImageBuilder/sharelatex-nightly.yml?branch=main)
+      - Status: [![sharelatex-latest](https://github.com/ActionsTools/DockerImageBuilder/actions/workflows/sharelatex-latest.yml/badge.svg)](https://github.com/ActionsTools/DockerImageBuilder/actions/workflows/sharelatex-latest.yml)
+    - Nightly: Every day
+      - Status: [![sharelatex-nightly](https://github.com/ActionsTools/DockerImageBuilder/actions/workflows/sharelatex-nightly.yml/badge.svg)](https://github.com/ActionsTools/DockerImageBuilder/actions/workflows/sharelatex-nightly.yml)
   - Architecture: AMD64, ARM64
-
